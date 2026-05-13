@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tu Nombre — Desarrollador</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:       #F5F2EC;
+      --ink:      #1C1B18;
+      --muted:    #7A7870;
+      --accent:   #3B5249;
+      --border:   #D8D4CB;
+      --serif:    'Cormorant Garamond', Georgia, serif;
+      --mono:     'DM Mono', 'Courier New', monospace;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--ink);
+      font-family: var(--mono);
+      font-weight: 300;
+      font-size: 14px;
+      line-height: 1.75;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── layout ─────────────────────────────────────── */
+    .container {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+
+    section { padding: 5rem 0; }
+    section + section { border-top: 1px solid var(--border); }
+
+    /* ── nav ─────────────────────────────────────────── */
+    nav {
+      position: sticky;
+      top: 0;
+      background: var(--bg);
+      border-bottom: 1px solid var(--border);
+      z-index: 10;
+    }
+
+    nav .container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 1.2rem;
+      padding-bottom: 1.2rem;
+    }
+
+    .nav-logo {
+      font-family: var(--serif);
+      font-size: 1.1rem;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+      text-decoration: none;
+      color: var(--ink);
+    }
+
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a {
+      text-decoration: none;
+      color: var(--muted);
+      font-size: 12px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--ink); }
+
+    /* ── hero ────────────────────────────────────────── */
+    #inicio {
+      padding-top: 7rem;
+      padding-bottom: 6rem;
+    }
+
+    .tag {
+      font-size: 11px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 1.8rem;
+    }
+
+    h1 {
+      font-family: var(--serif);
+      font-size: clamp(3.2rem, 8vw, 5.5rem);
+      font-weight: 300;
+      line-height: 1.05;
+      letter-spacing: -0.02em;
+      color: var(--ink);
+      margin-bottom: 2rem;
+    }
+
+    h1 em {
+      font-style: italic;
+      color: var(--accent);
+    }
+
+    .hero-sub {
+      max-width: 480px;
+      color: var(--muted);
+      line-height: 1.8;
+      margin-bottom: 2.5rem;
+    }
+
+    .hero-cta {
+      display: inline-block;
+      border: 1px solid var(--ink);
+      padding: 0.65rem 1.6rem;
+      text-decoration: none;
+      color: var(--ink);
+      font-size: 12px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      transition: background 0.2s, color 0.2s;
+    }
+    .hero-cta:hover { background: var(--ink); color: var(--bg); }
+
+    /* ── about ───────────────────────────────────────── */
+    .two-col {
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+      gap: 4rem;
+      align-items: start;
+    }
+
+    .section-label {
+      font-size: 11px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--muted);
+      padding-top: 0.2rem;
+    }
+
+    .about-text p + p { margin-top: 1rem; }
+    .about-text p { color: var(--muted); line-height: 1.85; }
+    .about-text p strong { color: var(--ink); font-weight: 400; }
+
+    /* ── stack ───────────────────────────────────────── */
+    .stack-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2.5rem 2rem;
+    }
+
+    .stack-category h3 {
+      font-family: var(--serif);
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin-bottom: 0.75rem;
+      color: var(--ink);
+    }
+
+    .stack-list { list-style: none; }
+    .stack-list li {
+      color: var(--muted);
+      padding: 0.2rem 0;
+      font-size: 13px;
+      border-bottom: 1px solid transparent;
+      transition: color 0.2s;
+    }
+    .stack-list li:hover { color: var(--ink); }
+    .stack-list li::before {
+      content: '— ';
+      color: var(--border);
+    }
+
+    /* ── proyectos ───────────────────────────────────── */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+    }
+
+    .project-card {
+      border: 1px solid var(--border);
+      padding: 1.8rem;
+      transition: border-color 0.2s;
+      background: transparent;
+    }
+    .project-card:hover { border-color: var(--ink); }
+
+    .project-num {
+      font-size: 11px;
+      color: var(--border);
+      margin-bottom: 1rem;
+    }
+
+    .project-title {
+      font-family: var(--serif);
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: var(--ink);
+      margin-bottom: 0.6rem;
+    }
+
+    .project-desc {
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.7;
+      margin-bottom: 1.2rem;
+    }
+
+    .project-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+    .project-tag {
+      font-size: 11px;
+      letter-spacing: 0.08em;
+      color: var(--accent);
+      border: 1px solid var(--border);
+      padding: 0.2rem 0.6rem;
+    }
+
+    .project-link {
+      display: block;
+      margin-top: 1.2rem;
+      font-size: 11px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .project-link:hover { color: var(--ink); }
+
+    /* ── contacto ────────────────────────────────────── */
+    .contact-inner {
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+      gap: 4rem;
+      align-items: start;
+    }
+
+    .contact-links { display: flex; flex-direction: column; gap: 1rem; }
+    .contact-links a {
+      text-decoration: none;
+      color: var(--muted);
+      font-size: 13px;
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      transition: color 0.2s;
+    }
+    .contact-links a:hover { color: var(--ink); }
+    .contact-links .link-label {
+      font-size: 11px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--border);
+      min-width: 60px;
+    }
+
+    .contact-message {
+      font-family: var(--serif);
+      font-size: clamp(1.6rem, 4vw, 2.5rem);
+      font-weight: 300;
+      line-height: 1.25;
+      color: var(--ink);
+    }
+    .contact-message em { font-style: italic; color: var(--accent); }
+
+    /* ── footer ──────────────────────────────────────── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 2rem 0;
+    }
+    footer .container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .footer-copy { font-size: 12px; color: var(--border); }
+
+    /* ── animaciones de entrada ──────────────────────── */
+    .fade-up {
+      opacity: 0;
+      transform: translateY(22px);
+      animation: fadeUp 0.7s ease forwards;
+    }
+
+    @keyframes fadeUp {
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .fade-up:nth-child(1) { animation-delay: 0.1s; }
+    .fade-up:nth-child(2) { animation-delay: 0.22s; }
+    .fade-up:nth-child(3) { animation-delay: 0.34s; }
+    .fade-up:nth-child(4) { animation-delay: 0.46s; }
+
+    /* ── responsive ──────────────────────────────────── */
+    @media (max-width: 640px) {
+      .two-col,
+      .contact-inner { grid-template-columns: 1fr; gap: 2rem; }
+      .stack-grid { grid-template-columns: 1fr 1fr; }
+      .projects-grid { grid-template-columns: 1fr; }
+      .nav-links { gap: 1.2rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <div class="container">
+      <a href="#inicio" class="nav-logo">Tu Nombre</a>
+      <ul class="nav-links">
+        <li><a href="#sobre-mi">Sobre mí</a></li>
+        <li><a href="#stack">Stack</a></li>
+        <li><a href="#proyectos">Proyectos</a></li>
+        <li><a href="#contacto">Contacto</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section id="inicio">
+    <div class="container">
+      <p class="tag fade-up">Desarrollador — Disponible para proyectos</p>
+      <h1 class="fade-up">
+        Tu Nombre.<br>
+        <em>Construyo</em><br>
+        con código.
+      </h1>
+      <p class="hero-sub fade-up">
+        Desarrollador web especializado en crear interfaces limpias y sistemas
+        robustos. Me enfoco en el detalle y en soluciones que duran.
+      </p>
+      <a href="#contacto" class="hero-cta fade-up">Hablemos</a>
+    </div>
+  </section>
+
+  <!-- SOBRE MÍ -->
+  <section id="sobre-mi">
+    <div class="container">
+      <div class="two-col">
+        <div>
+          <span class="section-label">Sobre mí</span>
+        </div>
+        <div class="about-text">
+          <p>
+            Soy un desarrollador con <strong>X años de experiencia</strong> construyendo
+            productos web. Me importa la calidad del código tanto como la experiencia
+            del usuario final.
+          </p>
+          <p>
+            Trabajo cómodo en el <strong>frontend y el backend</strong>, con preferencia
+            por proyectos donde puedo tener impacto real desde el primer día.
+          </p>
+          <p>
+            Cuando no estoy programando, probablemente estoy leyendo sobre
+            <strong>arquitectura de software</strong> o explorando nuevas herramientas
+            que vale la pena conocer.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- STACK -->
+  <section id="stack">
+    <div class="container">
+      <div class="two-col" style="margin-bottom: 3rem;">
+        <span class="section-label">Stack</span>
+        <p style="color: var(--muted);">Las herramientas con las que trabajo a diario.</p>
+      </div>
+      <div class="stack-grid">
+        <div class="stack-category">
+          <h3>Frontend</h3>
+          <ul class="stack-list">
+            <li>React</li>
+            <li>TypeScript</li>
+            <li>Next.js</li>
+            <li>CSS / Tailwind</li>
+          </ul>
+        </div>
+        <div class="stack-category">
+          <h3>Backend</h3>
+          <ul class="stack-list">
+            <li>Node.js</li>
+            <li>Python</li>
+            <li>PostgreSQL</li>
+            <li>REST / GraphQL</li>
+          </ul>
+        </div>
+        <div class="stack-category">
+          <h3>Herramientas</h3>
+          <ul class="stack-list">
+            <li>Git</li>
+            <li>Docker</li>
+            <li>Linux</li>
+            <li>Figma</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROYECTOS -->
+  <section id="proyectos">
+    <div class="container">
+      <div class="two-col" style="margin-bottom: 3rem;">
+        <span class="section-label">Proyectos</span>
+        <p style="color: var(--muted);">Selección de trabajos recientes.</p>
+      </div>
+      <div class="projects-grid">
+
+        <div class="project-card">
+          <p class="project-num">01</p>
+          <p class="project-title">Nombre del proyecto</p>
+          <p class="project-desc">Descripción breve del proyecto. Qué problema resuelve y cuál fue tu rol.</p>
+          <div class="project-tags">
+            <span class="project-tag">React</span>
+            <span class="project-tag">Node.js</span>
+            <span class="project-tag">PostgreSQL</span>
+          </div>
+          <a href="#" class="project-link">Ver proyecto</a>
+        </div>
+
+        <div class="project-card">
+          <p class="project-num">02</p>
+          <p class="project-title">Nombre del proyecto</p>
+          <p class="project-desc">Descripción breve del proyecto. Qué problema resuelve y cuál fue tu rol.</p>
+          <div class="project-tags">
+            <span class="project-tag">Next.js</span>
+            <span class="project-tag">TypeScript</span>
+          </div>
+          <a href="#" class="project-link">Ver proyecto</a>
+        </div>
+
+        <div class="project-card">
+          <p class="project-num">03</p>
+          <p class="project-title">Nombre del proyecto</p>
+          <p class="project-desc">Descripción breve del proyecto. Qué problema resuelve y cuál fue tu rol.</p>
+          <div class="project-tags">
+            <span class="project-tag">Python</span>
+            <span class="project-tag">API</span>
+          </div>
+          <a href="#" class="project-link">Ver proyecto</a>
+        </div>
+
+        <div class="project-card">
+          <p class="project-num">04</p>
+          <p class="project-title">Nombre del proyecto</p>
+          <p class="project-desc">Descripción breve del proyecto. Qué problema resuelve y cuál fue tu rol.</p>
+          <div class="project-tags">
+            <span class="project-tag">Docker</span>
+            <span class="project-tag">Linux</span>
+          </div>
+          <a href="#" class="project-link">Ver proyecto</a>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACTO -->
+  <section id="contacto">
+    <div class="container">
+      <div class="contact-inner">
+        <div>
+          <span class="section-label">Contacto</span>
+          <div class="contact-links" style="margin-top: 2rem;">
+            <a href="mailto:tu@email.com">
+              <span class="link-label">Email</span>
+              tu@email.com
+            </a>
+            <a href="https://github.com/tuusuario" target="_blank">
+              <span class="link-label">GitHub</span>
+              github.com/tuusuario
+            </a>
+            <a href="https://linkedin.com/in/tuusuario" target="_blank">
+              <span class="link-label">LinkedIn</span>
+              linkedin.com/in/tuusuario
+            </a>
+          </div>
+        </div>
+        <p class="contact-message">
+          ¿Tienes un proyecto en mente? Me alegra escuchar lo que estás
+          <em>construyendo.</em>
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">
+      <span class="footer-copy">Tu Nombre &copy; 2025</span>
+      <span class="footer-copy">Hecho a mano.</span>
+    </div>
+  </footer>
+
+</body>
+</html>
